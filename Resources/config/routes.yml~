@@ -1,9 +1,30 @@
-question_questao:
+question_autor_questao:
     type: rest
-    resource: QuestionBundle\Controller\QuestionController
+    resource: QuestionBundle\Controller\AutorDaQuestaoController
     name_prefix:  aspe_
     
+question_cartao_resposta:
+    type: rest
+    resource: QuestionBundle\Controller\CartaoRespostaController
+    name_prefix:  aspe_
+    
+question_opcao:
+    type: rest
+    resource: QuestionBundle\Controller\OpcaoController
+    name_prefix:  aspe_
+
 question_prova:
     type: rest
     resource: QuestionBundle\Controller\ProvaController
     name_prefix:  aspe_
+
+question_questao:
+    type: rest
+    resource: QuestionBundle\Controller\QuestaoController
+    name_prefix:  aspe_
+
+question_questao_prova:
+    type: rest
+    resource: QuestionBundle\Controller\QuestoesDaProvaController
+    name_prefix:  aspe_
+    

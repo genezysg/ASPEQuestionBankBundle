@@ -20,11 +20,13 @@ class Opcao
 	 * @ORM\Column(length=25)
 	 */
 	private $nome;
+	
 	/**
-	 * @ORM\ManyToOne(targetEntity="Questao", inversedBy = "resposta")
+	 * @ORM\ManyToOne(targetEntity="Questao")
 	 * @ORM\JoinColumn(name="cod_questao", referencedColumnName="codigo")
 	 */
 	private $cod_questao;
+	
 	public function getCodigo() {
 		return $this->codigo;
 	}
@@ -42,6 +44,7 @@ class Opcao
 		$this->cod_questao = $cod_questao;
 		return $this;
 	}
-	
-	
+	public function __toString(){
+		return $this->nome;
+	}
 }

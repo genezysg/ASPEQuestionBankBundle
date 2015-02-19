@@ -66,4 +66,7 @@ class AutorDaQuestao
 		$this->questao = $questao;
 		return $this;
 	}
+	public function __toString(){
+		return $this->nome;
+	}
 }

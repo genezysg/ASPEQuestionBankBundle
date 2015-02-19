@@ -18,21 +18,21 @@ class AutorDaQuestaoController extends FOSRestController {
 	 * @Annotations\QueryParam(name="posicao_inicio", requirements="\d+", nullable=true, description="Índice que indica o início da leitura.")
 	 * @Annotations\QueryParam(name="limite", requirements="\d+", default="50", description="Limite de dados exibidos.")
 	 */
-	public function getAutorDaQuestaosAction(Request $request, ParamFetcherInterface $paramFetcher) {
+	public function getAutor_questaosAction(Request $request, ParamFetcherInterface $paramFetcher) {
 		$posicao_inicio = $paramFetcher->get ( 'posicao_inicio' );
 		$posicao_inicio = null == $posicao_inicio ? 0 : $posicao_inicio;
 		$limite = $paramFetcher->get ( 'limite' );
 		
 		return $this->container->get ( 'question.autor_questao.handler' )->all ( $limite, $posicao_inicio );
 	}
-	public function getAutorDaQuestaoAction($codigo) {
+	public function getAutor_questaoAction($codigo) {
 		if (! ($autor_questao = $this->container->get ( 'question.autor_questao.handler' )->get ( $codigo ))) {
 			throw new NotFoundHttpException ( sprintf ( 'The resource \'%s\' was not found.', $codigo ) );
 		}
 		
 		return $autor_questao;
 	}
-	public function postAutorDaQuestaoAction(Request $request) {
+	public function postAutor_questaoAction(Request $request) {
 		try {
 			$newAutorDaQuestao = $this->container->get ( 'question.autor_questao.handler' )->post ( $request->request->all () );
 			
@@ -47,7 +47,7 @@ class AutorDaQuestaoController extends FOSRestController {
 			return $exception->getForm ();
 		}
 	}
-	public function deleteAutorDaQuestaoAction($codigo, Request $request, ParamFetcherInterface $paramFetcher) {
+	public function deleteAutor_questaoAction($codigo, Request $request, ParamFetcherInterface $paramFetcher) {
 		try {
 			if ($usuario = $this->container->get ( 'question.autor_questao.handler' )->get ( $codigo )) {
 				$statusCode = Codes::HTTP_CREATED;
@@ -66,7 +66,7 @@ class AutorDaQuestaoController extends FOSRestController {
 	/**
 	 * @Annotations\View(templateVar = "form")
      */
-	public function putAutorDaQuestaoAction(Request $request, $codigo) {
+	public function putAutor_questaoAction(Request $request, $codigo) {
 		try {
 			if (! ($autor_questao = $this->container->get ( 'question.autor_questao.handler' )->get ( $codigo ))) {				
 				$autor_questao = $this->container->get ( 'question.autor_questao.handler' )->post ( $request->request->all () );
@@ -87,9 +87,9 @@ class AutorDaQuestaoController extends FOSRestController {
 			return $exception->getForm ();
 		}
 	}
-	public function patchAutorDaQuestaoAction(Request $request, $codigo) {
+	public function patchAutor_questaoAction(Request $request, $codigo) {
 		try {			
-			$autor_questao = $this->container->get ( 'question.autor_questao.handler' )->patch ( $this->getAutorDaQuestaoAction ( $codigo ), $request->request->all () );
+			$autor_questao = $this->container->get ( 'question.autor_questao.handler' )->patch ( $this->getAutor_questaoAction ( $codigo ), $request->request->all () );
 			
 			$routeOptions = array (
 					'codigo' => $autor_questao->getCodigo (),

@@ -6,22 +6,13 @@
     
     <parameters>
         <parameter key="question.autor_questao.handler.class">QuestionBundle\Handler\AutorDaQuestaoHandler</parameter>
-        <parameter key="question.autor_questao.class">QuestionBundle\Entity\AutorDaQuestao</parameter>
-        
-        <parameter key="question.cartao_resposta.handler.class">QuestionBundle\Handler\CartaoRespostaHandler</parameter>
-        <parameter key="question.cartao_resposta.class">QuestionBundle\Entity\CartaoResposta</parameter>
+        <parameter key="question.autor_questao.class">QuestionBundle\Entity\AutorDaQuestao</parameter>        
         
         <parameter key="question.opcao.handler.class">QuestionBundle\Handler\OpcaoHandler</parameter>
-        <parameter key="question.opcao.class">QuestionBundle\Entity\Opcao</parameter>
+        <parameter key="question.opcao.class">QuestionBundle\Entity\Opcao</parameter>        
         
-        <parameter key="question.prova.handler.class">QuestionBundle\Handler\ProvaHandler</parameter>
-        <parameter key="question.prova.class">QuestionBundle\Entity\Prova</parameter>
-        
-        <parameter key="question.questao.handler.class">QuestionBundle\Handler\PerfilHandler</parameter>
-        <parameter key="question.questao.class">QuestionBundle\Entity\Perfil</parameter>
-        
-        <parameter key="question.questoes_prova.handler.class">QuestionBundle\Handler\QuestoesDaProvaHandler</parameter>
-        <parameter key="question.questoes_prova.class">QuestionBundle\Entity\QuestoesDaProva</parameter>        
+        <parameter key="question.questao.handler.class">QuestionBundle\Handler\QuestaoHandler</parameter>
+        <parameter key="question.questao.class">QuestionBundle\Entity\Questao</parameter>               
     </parameters>    
 
     <services>
@@ -31,33 +22,15 @@
             <argument type="service" id="form.factory"></argument>
         </service>
         
-        <service id="question.cartao_resposta.handler" class="%question.cartao_resposta.handler.class%">
-            <argument type="service" id="doctrine.orm.entity_manager" />
-            <argument>%question.cartao_resposta.class%</argument>
-            <argument type="service" id="form.factory"></argument>
-        </service>
-        
         <service id="question.opcao.handler" class="%question.opcao.handler.class%">
             <argument type="service" id="doctrine.orm.entity_manager" />
             <argument>%question.opcao.class%</argument>
             <argument type="service" id="form.factory"></argument>
         </service>
         
-        <service id="question.prova.handler" class="%question.prova.handler.class%">
-            <argument type="service" id="doctrine.orm.entity_manager" />
-            <argument>%question.prova.class%</argument>
-            <argument type="service" id="form.factory"></argument>
-        </service>
-        
         <service id="question.questao.handler" class="%question.questao.handler.class%">
             <argument type="service" id="doctrine.orm.entity_manager" />
             <argument>%question.questao.class%</argument>
-            <argument type="service" id="form.factory"></argument>
-        </service>
-        
-        <service id="question.questoes_prova.handler" class="%question.questoes_prova.handler.class%">
-            <argument type="service" id="doctrine.orm.entity_manager" />
-            <argument>%question.questoes_prova.class%</argument>
             <argument type="service" id="form.factory"></argument>
         </service>
     </services>

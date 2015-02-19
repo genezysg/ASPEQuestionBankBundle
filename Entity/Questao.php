@@ -28,7 +28,7 @@ class Questao
 	/**
 	 * @ORM\Column(length=15)
 	 */
-	private $siglaDisciplina;
+	private $siglaDisciplina;	
 	public function getCodigo() {
 		return $this->codigo;
 	}
@@ -53,6 +53,7 @@ class Questao
 		$this->siglaDisciplina = $siglaDisciplina;
 		return $this;
 	}
-	
-	
+	public function __toString(){
+		return $this->enunciado;
+	}
 }
