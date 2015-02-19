@@ -1,0 +1,9 @@
+question_questao:
+    type: rest
+    resource: QuestionBundle\Controller\QuestionController
+    name_prefix:  aspe_
+    
+question_prova:
+    type: rest
+    resource: QuestionBundle\Controller\ProvaController
+    name_prefix:  aspe_
