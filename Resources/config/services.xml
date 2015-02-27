@@ -6,13 +6,13 @@
     
     <parameters>
         <parameter key="question.autor_questao.handler.class">QuestionBundle\Handler\AutorDaQuestaoHandler</parameter>
-        <parameter key="question.autor_questao.class">QuestionBundle\Entity\AutorDaQuestao</parameter>        
+        <parameter key="question.autor_questao.class">EntityBundle\Entity\AutorDaQuestao</parameter>        
         
         <parameter key="question.opcao.handler.class">QuestionBundle\Handler\OpcaoHandler</parameter>
-        <parameter key="question.opcao.class">QuestionBundle\Entity\Opcao</parameter>        
+        <parameter key="question.opcao.class">EntityBundle\Entity\Opcao</parameter>        
         
         <parameter key="question.questao.handler.class">QuestionBundle\Handler\QuestaoHandler</parameter>
-        <parameter key="question.questao.class">QuestionBundle\Entity\Questao</parameter>               
+        <parameter key="question.questao.class">EntityBundle\Entity\Questao</parameter>               
     </parameters>    
 
     <services>

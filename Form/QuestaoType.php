@@ -27,7 +27,7 @@ class QuestaoType extends AbstractType
 	public function setDefaultOptions(OptionsResolverInterface $resolver)
 	{
 		$resolver->setDefaults(array(
-				'data_class' => 'QuestionBundle\Entity\Questao',
+				'data_class' => 'EntityBundle\Entity\Questao',
 		));
 	}
 

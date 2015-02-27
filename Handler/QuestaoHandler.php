@@ -4,7 +4,7 @@ namespace QuestionBundle\Handler;
 use Doctrine\Common\Persistence\ObjectManager;
 use QuestionBundle\Exception\InvalidFormException;
 use Symfony\Component\Form\FormFactoryInterface;
-use QuestionBundle\Entity\Questao;
+use EntityBundle\Entity\Questao;
 use FOS\RestBundle\Controller\FOSRestController;
 use Nelmio\ApiDocBundle\Extractor\Handler\FosRestHandler;
 use QuestionBundle\Form\QuestaoType;

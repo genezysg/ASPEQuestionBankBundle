@@ -28,7 +28,7 @@ class AutorDaQuestaoType extends AbstractType
 	public function setDefaultOptions(OptionsResolverInterface $resolver)
 	{
 		$resolver->setDefaults(array(
-				'data_class' => 'QuestionBundle\Entity\AutorDaQuestao',
+				'data_class' => 'EntityBundle\Entity\AutorDaQuestao',
 		));
 	}
 

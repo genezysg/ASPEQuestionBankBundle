@@ -26,7 +26,7 @@ class OpcaoType extends AbstractType
 	public function setDefaultOptions(OptionsResolverInterface $resolver)
 	{
 		$resolver->setDefaults(array(
-				'data_class' => 'QuestionBundle\Entity\Opcao',
+				'data_class' => 'EntityBundle\Entity\Opcao',
 		));
 	}
 
