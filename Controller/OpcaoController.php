@@ -12,6 +12,7 @@ use FOS\RestBundle\Request\ParamFetcherInterface;
 use Symfony\Component\Form\FormTypeInterface;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use QuestionBundle\Exception\InvalidFormException;
+use Symfony\Component\HttpFoundation\Response;
 
 class OpcaoController extends FOSRestController {
 	/**
@@ -22,81 +23,63 @@ class OpcaoController extends FOSRestController {
 		$posicao_inicio = $paramFetcher->get ( 'posicao_inicio' );
 		$posicao_inicio = null == $posicao_inicio ? 0 : $posicao_inicio;
 		$limite = $paramFetcher->get ( 'limite' );
-		
-		return $this->container->get ( 'question.opcao.handler' )->all ( $limite, $posicao_inicio );
+		if (! ($opcoes = $this->container->get ( 'question.opcao.handler' )->all ( $limite, $posicao_inicio )))
+			throw new NotFoundHttpException ( sprintf ( 'Recurso não encontrado.' ) );
+		else
+			return $opcoes;
 	}
 	public function getOpcaoAction($codigo) {
 		if (! ($opcao = $this->container->get ( 'question.opcao.handler' )->get ( $codigo ))) {
-			throw new NotFoundHttpException ( sprintf ( 'The resource \'%s\' was not found.', $codigo ) );
+			throw new NotFoundHttpException ( sprintf ( 'O recurso \'%s\' não foi encontrado.', $codigo ) );
 		}
-		
 		return $opcao;
 	}
 	public function postOpcaoAction(Request $request) {
 		try {
-			$newOpcao = $this->container->get ( 'question.opcao.handler' )->post ( $request->request->all () );
-			
-			$routeOptions = array (
-					'codigo' => $newOpcao->getCodigo (),
-					'_format' => $request->get ( '_format' ) 
-			);
-			
-			return $this->routeRedirectView ( 'aspe_get_opcao', $routeOptions );
+			$this->container->get ( 'question.opcao.handler' )->post ( $request->request->all () );
+			$statusCode = Codes::HTTP_CREATED;
+			return new Response ( null, $statusCode );
 		} catch ( InvalidFormException $exception ) {
-			
 			return $exception->getForm ();
 		}
 	}
 	public function deleteOpcaoAction($codigo, Request $request, ParamFetcherInterface $paramFetcher) {
 		try {
-			if ($usuario = $this->container->get ( 'question.opcao.handler' )->get ( $codigo )) {
-				$statusCode = Codes::HTTP_CREATED;
-				$this->container->get ( 'question.opcao.handler' )->delete ( $usuario );
+			if ($opcao = $this->container->get ( 'question.opcao.handler' )->get ( $codigo )) {
+				$statusCode = Codes::HTTP_OK;
+				$this->container->get ( 'question.opcao.handler' )->delete ( $opcao );
 			} else
-				$statusCode = Codes::HTTP_NO_CONTENT;
-			$routeOptions = array (
-					'_format' => $request->get ( '_format' ) 
-			);
-			return $this->routeRedirectView ( 'aspe_get_opcaos', $routeOptions, $statusCode );
+				$statusCode = Codes::HTTP_NOT_FOUND;
+			return new Response ( null, $statusCode );
 		} catch ( InvalidFormException $exception ) {
-			
 			return $exception->getForm ();
 		}
 	}
 	/**
 	 * @Annotations\View(templateVar = "form")
-     */
+	 */
 	public function putOpcaoAction(Request $request, $codigo) {
 		try {
-			if (! ($opcao = $this->container->get ( 'question.opcao.handler' )->get ( $codigo ))) {				
+			if (! ($opcao = $this->container->get ( 'question.opcao.handler' )->get ( $codigo ))) {
 				$opcao = $this->container->get ( 'question.opcao.handler' )->post ( $request->request->all () );
-				$statusCode = Codes::HTTP_CREATED;
 			} else {
-				$statusCode = Codes::HTTP_NO_CONTENT;
 				$opcao = $this->container->get ( 'question.opcao.handler' )->put ( $opcao, $request->request->all () );
 			}
-			
-			$routeOptions = array (
-					'codigo' => $opcao->getCodigo (),
-					'_format' => $request->get ( '_format' ) 
-			);
-			
-			return $this->routeRedirectView ( 'aspe_get_opcao', $routeOptions, $statusCode);
+			$statusCode = Codes::HTTP_OK;
+			return new Response ( null, $statusCode );
 		} catch ( InvalidFormException $exception ) {
-			
 			return $exception->getForm ();
 		}
 	}
 	public function patchOpcaoAction(Request $request, $codigo) {
-		try {			
-			$opcao = $this->container->get ( 'question.opcao.handler' )->patch ( $this->getOpcaoAction ( $codigo ), $request->request->all () );
+		try {
+			if (! ($this->container->get ( 'question.opcao.handler' )->get ( $codigo ))) {
+				$this->container->get ( 'question.opcao.handler' )->patch ( $this->getOpcaoAction ( $codigo ), $request->request->all () );
+				$statusCode = Codes::HTTP_OK;
+			} else
+				$statusCode = Codes::HTTP_NOT_FOUND;
 			
-			$routeOptions = array (
-					'codigo' => $opcao->getCodigo (),
-					'_format' => $request->get ( '_format' ) 
-			);
-			
-			return $this->routeRedirectView ( 'aspe_get_opcao', $routeOptions, Codes::HTTP_OK );
+			return new Response ( null, $statusCode );
 		} catch ( InvalidFormException $exception ) {
 			
 			return $exception->getForm ();
